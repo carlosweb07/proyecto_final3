@@ -142,7 +142,7 @@ app.post("/add/login", async (req, res) => {
     if(user){
         const payload = {
             correo : correo,
-            acceso : "usuario"
+            acceso : "administrador"
         }
         jwt.sign(payload, process.env.KEY , {algorithm:"HS256" , expiresIn: 86400} , (err, token) => {
 
@@ -165,13 +165,19 @@ app.get("/verify",(req, res)=>{
         if(err) throw err
         jwt.verify(data[0].token, process.env.KEY, (err, decoded) => {
             
-            if(decoded.acceso == "usuario"){
-                res.redirect("/pagina6")
-            }
+            // if(decoded.acceso == "usuario"){
+            //     res.redirect("/pagina6")
+            // }
 
             if(decoded.acceso == "administrador"){
                 res.redirect("/pagina7")
             }
         })
     })
+})
+
+// API XD:
+app.get(process.env.ROOT8_PATH, async (req, res) => {
+
+    res.render('index8')
 })
